@@ -1,5 +1,6 @@
+#!/bin/bash
 # start ssh server (dev purpose) if installed
-[ -f /etc/init.d/ssh ] && /etc/init.d/ssh start
+#[ -f /etc/init.d/ssh ] && /etc/init.d/ssh start
 
 # start mysql
 #/usr/bin/mysqld_safe > /dev/null 2>&1 &
@@ -17,19 +18,20 @@
 #echo ""
 
 # start Domogik 
+/etc/init.d/domogik stop
 /etc/init.d/domogik start
 
 echo "Wait for Domogik to be up"
-#ready=no
-#while [ $ready == "no" ] ; do
-#    sleep 3
-#    cat < /dev/null > /dev/tcp/127.0.0.1/40406 
-#    if [ $? -eq 0 ] ; then
-#        ready=yes
-#    fi
-#    echo -n "."
-#done
-#echo ""
+ready=no
+while [ $ready == "no" ] ; do
+    sleep 3
+    cat < /dev/null > /dev/tcp/127.0.0.1/40406 
+    if [ $? -eq 0 ] ; then
+        ready=yes
+    fi
+    echo -n "."
+done
+echo ""
 
 # start Domoweb
 #/etc/init.d/domoweb start
